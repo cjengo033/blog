@@ -32,9 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::prefix('blog')->group(function(){
-    Route::get('/', function() {
-        return 'API is working!';
-    });
+    Route::get('/test', [BlogController::class, 'test']);
     Route::get('/allBlog', [BlogController::class, 'index']);
     Route::get('/show/{id}', [BlogController::class, 'show']);
     Route::post('/create', [BlogController::class, 'create']);

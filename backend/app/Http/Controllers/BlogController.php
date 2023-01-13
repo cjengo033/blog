@@ -142,4 +142,9 @@ class BlogController extends Controller
             ]);
         }
     }
+
+    public function test()
+    {
+        return "API is UP";
+    }
 }
