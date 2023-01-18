@@ -3,8 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
-
-
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -38,4 +37,13 @@ Route::prefix('blog')->group(function(){
     Route::post('/create', [BlogController::class, 'create']);
     Route::delete('/destroy/{id}', [BlogController::class, 'destroy']);
     Route::post('/edit/{id}', [BlogController::class, 'edit']);
+});
+
+Route::prefix('authentication/')->group(function(){
+    Route::post('login', [UserController::class, 'login']);
+});
+
+Route::prefix('credential/')->middleware('auth:sanctum')->group(function(){
+    route::get('testToken', [UserController::class, 'testToken']);
+    route::get('logout', [UserController::class, 'logout']);
 });
