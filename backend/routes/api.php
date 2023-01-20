@@ -41,6 +41,7 @@ Route::prefix('blog')->group(function(){
 
 Route::prefix('authentication/')->group(function(){
     Route::post('login', [UserController::class, 'login']);
+    Route::post('register', [UserController::class, 'register']);
 });
 
 Route::prefix('credential/')->middleware('auth:sanctum')->group(function(){

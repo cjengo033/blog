@@ -13,6 +13,9 @@ import NoPage from "./Pages/NoPage";
 import AddBlog from './Pages/AddBlog';
 import View from './Pages/View';
 import Remove from './Pages/Remove';
+import Login from './Pages/Login';
+import Logout from './Pages/Logout';
+import Register from './Pages/Register';
 
 
 function App() {
@@ -20,9 +23,12 @@ function App() {
 
     <BrowserRouter>
       <Routes>
+        <Route index element={<Home />} />
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="blogs" element={<Blogs />} />
+          <Route path="login" element={<Login />} />
+          <Route path="logout" element={<Logout />} />
+          <Route path="register" element={<Register />} />
+          <Route path="blog" element={<Blogs />} />
           <Route path="add" element={<AddBlog />} />
           <Route path="view/:id" element={<View />} />
           <Route path="remove/:id" element={<Remove />} />

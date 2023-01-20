@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -41,12 +42,30 @@ class UserController extends Controller
         }
 
         $user = User::where('email', $request->email)->first();
+        $token = $user->createToken("API TOKEN")->plainTextToken;
+        return response()->json([
+            'status' => 200,
+            'message' => 'User Logged In Successfully',
+            'token' => $token
+        ]);
+    }
+
+    public function register(Request $request)
+    {
+        $name = $request->name;
+        $email = $request->email;
+        $password = $request->password;
+
+        DB::table('users')->insert([
+            'name' => $name,
+            'email' =>   $email,
+            'password' => Hash::make($password)
+        ]);
 
         return response()->json([
-            'status' => true,
-            'message' => 'User Logged In Successfully',
-            'token' => $user->createToken("API TOKEN")->plainTextToken
-        ], 200);
+            'status' => 200,
+            'message' => 'Account Registered',
+        ]);
     }
 
     public function logout(Request $request)
@@ -62,5 +81,4 @@ class UserController extends Controller
     {
         return "Working api token";
     }
-
 }

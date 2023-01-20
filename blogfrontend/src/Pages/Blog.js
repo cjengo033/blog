@@ -15,6 +15,7 @@ const Blog = () => {
 
     const content = dataBlog?.map((post) =>
         <div key={post.id}>
+
             <table className="table">
                 <thead>
                     <tr>
@@ -42,9 +43,9 @@ const Blog = () => {
     );
 
     return (
-        <div>
-            <button>
-                <a href={'/add'}  >Add Blog</a>
+        <div className='shadow-lg p-3 m-5 bg-white rounded'>
+            <button className='mb-2'>
+                <a href={'/add'} className='mb-5'>Add Blog</a>
             </button>
             {content}
         </div>

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 const Remove = () => {
     const { id } = useParams();
     const [status, setStatus] = useState("");
-    const url = "/blogs";
+    const url = "/blog";
 
     useEffect(() => {
         // DELETE request using fetch inside useEffect React hook
