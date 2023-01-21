@@ -37,7 +37,7 @@ const Layout = () => {
                             </button>
                             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                                 <div className="navbar-nav">
-                                    <p>Blog Website</p>
+                                    <a className="nav-link" disabled>Portfolio</a>
                                     {/* <a className="nav-link" href="/add_students">Add Student</a> */}
                                 </div>
                             </div>

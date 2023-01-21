@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import Token from './Token';
 
 const Blog = () => {
     const [data, setData] = useState([]);
-    const reponse = data.Response;
     const dataBlog = data.Data;
-    console.log(dataBlog);
+    const email = localStorage.getItem("auth_email");   
 
     useEffect(() => {
         fetch("http://127.0.0.1:8000/api/blog/allBlog")
@@ -44,10 +44,12 @@ const Blog = () => {
 
     return (
         <div className='shadow-lg p-3 m-5 bg-white rounded'>
+            <h5>Email: <b>{email}</b></h5>
             <button className='mb-2'>
                 <a href={'/add'} className='mb-5'>Add Blog</a>
             </button>
             {content}
+            <Token />
         </div>
 
     )

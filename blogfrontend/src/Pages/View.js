@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import {useParams} from 'react-router-dom';
-
+import { useForm } from 'react-hook-form'
+import { useParams } from 'react-router-dom';
+import Token from './Token';
 
 const View = () => {
     const [data, setData] = useState([]);
-    const reponse = data.Response;
+    const url = "/blog";
     const dataBlog = data.Data;
-    const {id} = useParams();
+    const { id } = useParams();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     console.log(dataBlog);
 
     useEffect(() => {
@@ -16,41 +18,90 @@ const View = () => {
             .catch((err) => console.error(err))
     }, [])
 
+    const submit = function (data) {
+        const obj = { subject: data.subject, description: data.description };
+        const updated_blog = JSON.stringify(obj);
+        console.log(updated_blog)
+        fetch(`http://127.0.0.1:8000/api/blog/edit/${id}?`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: updated_blog
+        })
+            .then((response) => {
+                if (response.status == 200) {
+                    response.json().then((json) => {
+                        window.location.href = url;
+                    })
+                }
+            }).catch((response) => {
+                response.json().then((json) => {
+                    console.log(json);
+                })
+            });
+        data.preventDefault();
+    }
+
     const content = dataBlog?.map((post) =>
         <div key={post.id}>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Subject</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Time</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">{post.id}</th>
-                        <td>{post.subject}</td>
-                        <td>{post.description}</td>
-                        <td>{post.time}</td>
-                        <td>
-                            <a href={`/remove/${post.id}`}  >Delete</a>
-                        </td>
-                    </tr>
+            <div className='shadow-lg p-3 m-5 bg-white rounded'>
+                <h5>Data</h5>
+                <div>
+                    {errors.subject && errors.subject.type === "required" && <span className="text-danger mt-1">Subject is required</span>} <br></br>
+                    {errors.description && errors.description.type === "required" && <span className="text-danger mt-1">Description is required</span>}
+                </div>
+                <form onSubmit={handleSubmit(submit)}>
+                    <div className="form-group">
+                        <label for="exampleInputEmail1">Subject</label>
+                        <input
+                            {...register("subject", { required: true, maxLength: 30 })}
+                            type="text"
+                            defaultValue={post.subject}
+                            className="form-control"
+                            id="exampleInputEmail1"
+                            aria-describedby="emailHelp"
+                        />
+                    </div>
 
-                </tbody>
-            </table>
+
+                    <div className="form-group">
+                        <label for="exampleInputEmail1">Description</label>
+                        <input
+                            {...register("description", { required: true, maxLength: 30 })}
+                            type="text"
+                            defaultValue={post.description}
+                            className="form-control"
+                            id="exampleInputEmail1"
+                            aria-describedby="emailHelp"
+                        />
+                    </div>
+
+
+                    <button type="submit" className="btn btn-primary">Update</button> <br></br>
+                    <a href={`/remove/${post.id}`}  >Delete</a>
+
+                </form>
+
+            </div>
+
         </div>
     );
 
     return (
-        <div>
-            <h1>View</h1>
+        <>
             <div>
-                {content}
+                <div className='shadow-lg p-3 m-5 bg-white rounded'>
+                    {content}
+                </div>
             </div>
-        </div>
+
+
+
+            <Token />
+        </>
+
 
     )
 }
