@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,7 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::prefix('blog')->group(function(){
+Route::prefix('blog')->group(function () {
     Route::get('/test', [BlogController::class, 'test']);
     Route::get('/allBlog', [BlogController::class, 'index']);
     Route::get('/show/{id}', [BlogController::class, 'show']);
@@ -39,12 +38,21 @@ Route::prefix('blog')->group(function(){
     Route::post('/edit/{id}', [BlogController::class, 'edit']);
 });
 
-Route::prefix('authentication/')->group(function(){
+Route::prefix('profile')->group(function () {
+    Route::get('/user/{id}', [BlogController::class, 'user']);
+    Route::post('/sent/{id}', [BlogController::class, 'sent_request']);
+});
+
+Route::prefix('authentication/')->group(function () {
     Route::post('login', [UserController::class, 'login']);
     Route::post('register', [UserController::class, 'register']);
 });
 
-Route::prefix('credential/')->middleware('auth:sanctum')->group(function(){
+Route::prefix('credential/')->middleware('auth:sanctum')->group(function () {
     route::get('testToken', [UserController::class, 'testToken']);
     route::get('logout', [UserController::class, 'logout']);
 });
+
+Route::post('/cart/add', 'CartController@addItem');
+Route::put('/cart/update/{id}', 'CartController@updateItem');
+Route::delete('/cart/remove/{id}', 'CartController@removeItem');

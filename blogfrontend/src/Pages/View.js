@@ -96,9 +96,6 @@ const View = () => {
                     {content}
                 </div>
             </div>
-
-
-
             <Token />
         </>
 

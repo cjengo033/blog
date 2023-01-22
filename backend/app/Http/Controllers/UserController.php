@@ -40,10 +40,12 @@ class UserController extends Controller
         }
 
         $user = User::where('email', $request->email)->first();
+        $user_id = DB::table('users')->where('email', '=' , $request->email)->value('id');
         $token = $user->createToken("API TOKEN")->plainTextToken;
         return response()->json([
             'status' => 200,
             'message' => 'User Logged In Successfully',
+            'id' => $user_id,
             'token' => $token
         ]);
     }

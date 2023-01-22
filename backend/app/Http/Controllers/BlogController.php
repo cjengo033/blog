@@ -142,8 +142,51 @@ class BlogController extends Controller
         }
     }
 
-    public function test()
+    public function user(Request $request)
     {
-        return "API is UP";
+        $user_id = $request->id;
+        $users = DB::table('users')
+            // ->select(DB::raw('count(*) as user_count, status'))
+            ->where('id', '=', $user_id)
+            ->get();
+
+        if ($users) {
+            return response()->json([
+                "Response" => "Success",
+                "Message" => "Working",
+                "Data" => $users
+            ]);
+        } else {
+            return response()->json([
+                "Response" => "Failed",
+                "Message" => "Data is not availabled"
+            ]);
+        }
+    }
+
+    public function sent_request(Request $request)
+    {
+        $my_id = $request->my_id;
+        $other_id = $request->other_id;
+        $friend_answer = $request->answer;
+
+        $data = DB::table('friendship')->insert([
+            'request' =>  $friend_answer,
+            'from_user' =>  $my_id,
+            'to_user' =>  $other_id
+        ]);
+
+        if ($data) {
+            return response()->json([
+                "Response" => "Success",
+                "Message" => "You've sent a friend quest",
+                "Data" => $data
+            ]);
+        } else {
+            return response()->json([
+                "Response" => "Failed",
+                "Message" => "Data is not availabled"
+            ]);
+        }
     }
 }

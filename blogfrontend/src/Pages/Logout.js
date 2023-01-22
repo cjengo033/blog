@@ -7,6 +7,7 @@ const Logout = () => {
         if (token != undefined) {
             localStorage.removeItem("auth_token");
             localStorage.removeItem("auth_email");
+            localStorage.removeItem("auth_id");
             window.location.href = url;
         }
     }

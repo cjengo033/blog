@@ -21,6 +21,7 @@ const Login = () => {
                 if (response.status == 200) {
                     response.json().then((json) => {
                         localStorage.setItem('auth_token', json.token)
+                        localStorage.setItem('auth_id', json.id)
                         localStorage.setItem('auth_email', email)
                         window.location.href = url;
                     })

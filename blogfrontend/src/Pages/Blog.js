@@ -16,16 +16,16 @@ const Blog = () => {
     const content = dataBlog?.map((post) =>
         <div key={post.id}>
 
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Subject</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Time</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Subject</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
                 <tbody>
                     <tr>
                         <th scope="row">{post.id}</th>
@@ -49,7 +49,7 @@ const Blog = () => {
                 <a href={'/add'} className='mb-5'>Add Blog</a>
             </button>
             {content}
-            <Token />
+            <Token /> 
         </div>
 
     )
