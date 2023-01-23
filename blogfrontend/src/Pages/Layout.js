@@ -28,9 +28,8 @@ const Layout = () => {
                             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                                 <div className="navbar-nav">
                                     <a className="nav-link active" aria-current="page" href="/blog">Home</a>
-                                    <a className="nav-link" href="/blog">Blog</a>
                                     <a className="nav-link" href={`/profile/${user_id}`}>My Profile</a>
-                                    <a className="nav-link" href="/settings">Settings</a>
+                                    <a className="nav-link" href={`/settings/${user_id}`}>Settings</a>
                                     {/* <a className="nav-link" href="/add_students">Add Student</a> */}
                                 </div>
                             </div>

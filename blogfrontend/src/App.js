@@ -17,6 +17,7 @@ import Login from './Pages/Login';
 import Logout from './Pages/Logout';
 import Register from './Pages/Register';
 import Profile from './Pages/Profile';
+import Settings from './Pages/Settings';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="blog" element={<Blogs />} />
           <Route path="profile/:id" element={<Profile />} />
+          <Route path="settings/:id" element={<Settings />} />
           <Route path="add" element={<AddBlog />} />
           <Route path="view/:id" element={<View />} />
           <Route path="remove/:id" element={<Remove />} />
