@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom';
 import Token from './Token';
+import Image from '../Assets/boat.jpg'
+import Footer from './Footer';
 
 const View = () => {
     const [data, setData] = useState([]);
@@ -50,58 +52,149 @@ const View = () => {
         if (user_id != id) {
             return (
                 <>
-                    <a className="nav-link" href="/settings">Send Friend Req</a>
+                    <div class="col-md-auto">
+                        <button className='btn btn-primary'> Follow Me</button>
+                    </div>
+
+                    <div class="col-md-auto">
+                        <button className='btn btn-primary'> Upload Post</button>
+                    </div>
                 </>
             )
 
         } else {
             return (
                 <>
-                    <a className="nav-link" href="/settings">Settings</a>
+                    <div class="col-md-auto">
+                        <button className='btn btn-primary' disabled> Follow Me</button>
+                    </div>
+
+                    <div class="col-md-auto">
+                        <button className='btn btn-primary'> Upload Post</button>
+                    </div>
                 </>
             )
         }
     }
 
-    const content = dataBlog?.map((post) =>
-        <div key={post.id}>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#ID </th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Created At</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">{post.id}</th>
-                        <td>{post.name}</td>
-                        <td>{post.email}</td>
-                        <td>{post.created_at}</td>
-                        <td>
+    const content = dataBlog?.map((user) =>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col">
+                    <div className=''>
+                        <img src={Image} className="img-thumbnail" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div className=''>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-auto">
+                                    <h3>{user.name}</h3>
+                                </div>
 
-                            {check_friend()}
+                                {check_friend()}
+                            </div>
+
+                            <div class="row mt-2">
+
+                                <div class="col-md-auto">
+                                    <p><b>1,000</b> post</p>
+                                </div>
+                                <div class="col-md-auto">
+                                    <p><b>1,000</b> follower</p>
+                                </div>
+
+                                <div class="col-md-auto">
+                                    <p><b>1,000</b> following</p>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+
+                                <div class="col-md-auto">
+                                    <p><b>{user.name}</b> A web developer and designer</p>
+                                </div>
+
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-auto">
+                                    <a href='#'>www.website-carl.com</a>
+                                </div>
+                            </div>
+                        </div>
 
 
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
-
-
-    );
-    return (
-        <>
-            <div>
-                <div className='shadow-lg p-3 m-5 bg-white rounded'>
-                    {content}
+                    </div>
                 </div>
             </div>
+        </div>
+    );
+
+    const AlbumbContent = () => {
+        return (
+            <>
+                <div className='container mt-5'>
+                    <div className='row'>
+                        <div className='col'>
+                            <img src={Image} className="img-thumbnail" />
+                        </div>
+
+                        <div className='col'>
+                            <img src={Image} className="img-thumbnail" />
+                        </div>
+
+                        <div className='col'>
+                            <img src={Image} className="img-thumbnail" />
+                        </div>
+                    </div>
+
+                    <div className='row'>
+                        <div className='col'>
+                            <img src={Image} className="img-thumbnail" />
+                        </div>
+
+                        <div className='col'>
+                            <img src={Image} className="img-thumbnail" />
+                        </div>
+
+                        <div className='col'>
+                            <img src={Image} className="img-thumbnail" />
+                        </div>
+                    </div>
+
+                    <div className='row'>
+                        <div className='col'>
+                            <img src={Image} className="img-thumbnail" />
+                        </div>
+
+                        <div className='col'>
+                            <img src={Image} className="img-thumbnail" />
+                        </div>
+
+                        <div className='col'>
+                            <img src={Image} className="img-thumbnail" />
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
+    }
+    return (
+        <>
+            {/* 
+            <div className='shadow-lg p-3 m-5 bg-white rounded'>
+                {content}
+            </div> */}
+
+            <>
+                {content}
+
+                <AlbumbContent />
+
+                <Footer />
+            </>
+
             <Token />
         </>
 

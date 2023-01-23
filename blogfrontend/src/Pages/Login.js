@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-
+import Footer from './Footer';
+import Image from '../Assets/boat.jpg'
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -36,7 +37,7 @@ const Login = () => {
     return (
 
         <>
-            <div className='shadow-lg p-3 m-5 bg-white rounded'>
+            {/* <div className='shadow-lg p-3 m-5 bg-white rounded'>
                 <h1>Login</h1>
                 <form onSubmit={submit}>
                     <div className="form-group">
@@ -74,7 +75,56 @@ const Login = () => {
                     <li>Email: hullrich@example.net</li>
                     <li>Password: password</li>
                 </ul>
-            </div>
+            </div> */}
+            <form onSubmit={submit}>
+                <div className='container-xl shadow-sm p-3 mt-5 bg-white rounded p-5'>
+                    <div className='row'>
+                        <div className='col'>
+                            <h2 className='text-center'>Login</h2>
+                            <div className='mt-5'>
+                                <label>Email</label>
+                                <br></br>
+                                <input
+                                    onChange={e => setEmail(e.target.value)}
+                                    type="text"
+                                    className="form-control"
+                                    id="exampleInputEmail1"
+                                    aria-describedby="emailHelp"
+                                    placeholder="Email..."
+                                />
+                                <br></br>
+                                <label>Password</label>
+                                <br></br>
+                                <input
+                                    onChange={e => setPassword(e.target.value)}
+                                    type="password"
+                                    className="form-control"
+                                    id="exampleInputEmail1"
+                                    aria-describedby="emailHelp"
+                                    placeholder="Password..." />
+                                <br></br>
+                                <button type="submit" className='mt-2 mb-2 btn btn-danger form-control'>Submit</button>
+                                <br></br>
+                                <a href='/register' className=''>No account yet? Go register now!</a>
+                            </div>
+
+                        </div>
+
+                        <div className='col'>
+                            <img src={Image} className="img-thumbnail rounded" />
+                            <p className='carousel-caption'> <a>Welcome to my Portfolio</a></p>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+
+
+
+            <Footer />
         </>
 
     )
