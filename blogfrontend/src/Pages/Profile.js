@@ -4,11 +4,20 @@ import { useParams } from 'react-router-dom';
 import Token from './Token';
 import Image from '../Assets/boat.jpg'
 import Footer from './Footer';
+import '../App.css';
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 const View = () => {
     const [data, setData] = useState([]);
+    const [blog, setBlog] = useState([]);
     const url = "/blog";
     const dataBlog = data.Data;
+    const dataTest = blog.Data;
+    console.log(dataTest);
+
+    // const dataTest = blog.Data;
     const { id } = useParams();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const user_id = localStorage.getItem("auth_id");
@@ -20,44 +29,28 @@ const View = () => {
             // http://127.0.0.1:8000/api/blog/user/1
             .then((res) => res.json())
             .then((res) => { setData(res) })
+
             .catch((err) => console.error(err))
     }, [])
 
-    const submit = function (data) {
-        const obj = { subject: data.subject, description: data.description };
-        const updated_blog = JSON.stringify(obj);
-        console.log(updated_blog)
-        fetch(`http://127.0.0.1:8000/api/blog/edit/${id}?`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: updated_blog
-        })
-            .then((response) => {
-                if (response.status == 200) {
-                    response.json().then((json) => {
-                        window.location.href = url;
-                    })
-                }
-            }).catch((response) => {
-                response.json().then((json) => {
-                    console.log(json);
-                })
-            });
-        data.preventDefault();
-    }
+    useEffect(() => {
+        fetch(`http://127.0.0.1:8000/api/blog/allBlog`)
+
+            // http://127.0.0.1:8000/api/blog/user/1
+            .then((res) => res.json())
+            .then((res) => { setBlog(res) })
+            .catch((err) => console.error(err))
+    }, [])
+
+
     const check_friend = () => {
         if (user_id != id) {
             return (
                 <>
                     <div class="col-md-auto">
-                        <button className='btn btn-primary'> Follow Me</button>
-                    </div>
-
-                    <div class="col-md-auto">
-                        <button className='btn btn-primary'> Upload Post</button>
+                        <div className='home-button'>
+                            <button className='btn btn-primary'> Follow Me</button>
+                        </div>
                     </div>
                 </>
             )
@@ -70,12 +63,13 @@ const View = () => {
                     </div>
 
                     <div class="col-md-auto">
-                        <button className='btn btn-primary'> Upload Post</button>
+                        <button className='btn btn-primary'> <a href='/add'>Upload Post</a></button>
                     </div>
                 </>
             )
         }
     }
+
 
     const content = dataBlog?.map((user) =>
         <div class="container mt-5">
@@ -131,7 +125,63 @@ const View = () => {
         </div>
     );
 
-    const AlbumbContent = () => {
+
+
+    const Test = () => {
+        return (
+            <>
+                <div className='mt-5'>
+                    <Container fluid>
+                        <Row xs={6} md={4} lg={3}>
+                            {
+                                dataTest?.map((item) => (
+                                    <Col
+                                        key={item.id}>
+                                        <div className='m-2'>
+                                            <img src={Image} className="img-thumbnail" />
+                                            <small className='carousel-caption text-uppercase'>{item.subject} & {item.description} </small>
+
+
+                                        </div>
+
+
+                                    </Col>
+                                ))
+                            }
+                        </Row>
+                    </Container>
+                </div>
+
+
+                {/* <div className='row mt-5'>
+                        <div className='col'>
+                           
+                        </div>
+                        <div className='col'>
+                            <img src={Image} className="img-thumbnail" />
+                        </div>
+                        <div className='col'>
+                            <img src={Image} className="img-thumbnail" />
+                        </div>
+                    </div>
+
+                    <div className='row mt-5'>
+                        <div className='col'>
+                            <img src={Image} className="img-thumbnail" />
+                        </div>
+                        <div className='col'>
+                            <img src={Image} className="img-thumbnail" />
+                        </div>
+                        <div className='col'>
+                            <img src={Image} className="img-thumbnail" />
+                        </div>
+                    </div> */}
+
+            </>
+        )
+    }
+
+    const AlbumbContent1 = () => {
         return (
             <>
                 <div className='container mt-5'>
@@ -189,9 +239,7 @@ const View = () => {
 
             <>
                 {content}
-
-                <AlbumbContent />
-
+                <Test />
                 <Footer />
             </>
 

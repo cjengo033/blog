@@ -4,9 +4,10 @@ import Token from './Token';
 const AddBlog = () => {
     const [subject, setSubject] = useState("");
     const [description, setDescription] = useState("");
-    const url = "/blog";
+    const id = localStorage.getItem("auth_id");
+    const url = `/profile/${id}`;
 
-    const doSomething = function (e) {
+    const submit = function (e) {
         fetch('http://127.0.0.1:8000/api/blog/create?', {
             method: 'POST',
             headers: {
@@ -25,7 +26,7 @@ const AddBlog = () => {
     return (
         <>
             <div className='shadow-lg p-3 m-5 bg-white rounded'>
-                <form onSubmit={doSomething}>
+                <form onSubmit={submit}>
                     <div className="form-group">
                         <label for="exampleInputEmail1">Subject</label>
                         <input
