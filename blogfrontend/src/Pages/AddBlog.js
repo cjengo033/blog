@@ -56,9 +56,6 @@ const AddBlog = () => {
             </div>
             <Token />
         </>
-
-
-
     )
 }
 
