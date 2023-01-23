@@ -10,7 +10,7 @@
 ![image](https://user-images.githubusercontent.com/57130927/213967431-f88ce85f-914d-4f5f-98f5-411d693cde21.png)
 
 #Profile Page
-![image](https://user-images.githubusercontent.com/57130927/213967277-236c9316-0e65-4af7-957c-bf377be03cc1.png)
+![image](https://user-images.githubusercontent.com/57130927/214002194-cb434ebb-9e35-4e39-b542-81503e5e73fb.png)
 
 
 
