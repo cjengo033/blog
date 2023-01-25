@@ -12,6 +12,10 @@
 #Profile Page
 ![image](https://user-images.githubusercontent.com/57130927/214002194-cb434ebb-9e35-4e39-b542-81503e5e73fb.png)
 
+#Profile Page (A user can follow other user like instagram)
+![image](https://user-images.githubusercontent.com/57130927/214600549-b5e6fa4b-a846-47a5-a338-ff903bf5348b.png)
+
+
 
 
 
