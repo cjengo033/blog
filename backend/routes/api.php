@@ -40,7 +40,9 @@ Route::prefix('blog')->group(function () {
 
 Route::prefix('profile')->group(function () {
     Route::get('/user/{id}', [BlogController::class, 'user']);
-    Route::post('/sent/{id}', [BlogController::class, 'sent_request']);
+    Route::get('/follow/{my_id}/{other_id}', [BlogController::class, 'follow_status']);
+    Route::post('/sent/', [BlogController::class, 'sent_request']);
+    Route::delete('/unfollow/{id}/{other_id}', [BlogController::class, 'unfollow']);
 });
 
 Route::prefix('authentication/')->group(function () {

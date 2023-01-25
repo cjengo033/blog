@@ -71,6 +71,7 @@ class BlogController extends Controller
             $get_single_data = DB::table('blogs')
                 ->where('id', '=', $id)
                 ->get();
+
             if ($get_single_data) {
                 return response()->json([
                     "Response" => "Success",
@@ -168,8 +169,7 @@ class BlogController extends Controller
     {
         $my_id = $request->my_id;
         $other_id = $request->other_id;
-        $friend_answer = $request->answer;
-
+        $friend_answer = $request->answer; //0 = follow me, 1 == followed
         $data = DB::table('friendship')->insert([
             'request' =>  $friend_answer,
             'from_user' =>  $my_id,
@@ -186,6 +186,79 @@ class BlogController extends Controller
             return response()->json([
                 "Response" => "Failed",
                 "Message" => "Data is not availabled"
+            ]);
+        }
+    }
+
+    public function follow_status(Request $request)
+    {
+        $my_id = $request->my_id;
+        $other_id = $request->other_id;
+        $check_id = DB::table('friendship')
+            ->where([
+                ['from_user', '=', $my_id],
+                ['to_user', '=', $other_id]
+            ])
+            ->exists();
+        if ($check_id) {
+            $get_single_data = DB::table('friendship')
+                ->where([
+                    ['from_user', '=', $my_id],
+                    ['to_user', '=', $other_id]
+                ])
+                ->get();
+            if ($get_single_data) {
+                return response()->json([
+                    "Response" => "Success",
+                    "Message" => "Working",
+                    "Data" => $get_single_data
+                ]);
+            } else {
+                return response()->json([
+                    "Response" => "Failed",
+                    "Message" => "Data is not availabled"
+                ]);
+            }
+        } else {
+            return response()->json([
+                "Response" => "Failed",
+                "Message" => "No record found in the database"
+            ]);
+        }
+    }
+
+    public function unfollow(Request $request)
+    {
+        $id = $request->id;
+        $other_id = $request->other_id;
+        $check_id = DB::table('friendship')->where(
+            [
+                ['from_user', '=', $id],
+                ['to_user', '=', $other_id]
+            ]
+        )->exists();
+        if ($check_id) {
+            $delete_blog = DB::table('friendship')->where(
+                [
+                    ['from_user', '=', $id],
+                    ['to_user', '=', $other_id]
+                ]
+            )->delete();
+            if ($delete_blog) {
+                return response()->json([
+                    "Response" => "Success",
+                    "Message" => "Data has been successfully deleted",
+                ]);
+            } else {
+                return response()->json([
+                    "Response" => "Failed",
+                    "Message" => "Data has not been successfully deleted"
+                ]);
+            }
+        } else {
+            return response()->json([
+                "Response" => "Failed",
+                "Message" => "No record found in the database"
             ]);
         }
     }
